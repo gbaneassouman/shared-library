@@ -7,11 +7,11 @@ def exportIp(dirname) {
 
 def appDirname(dirname) {
     sh """
-        INFILE=$PWD/list.txt
+        INFILE=\$PWD/list.txt
         mkdir -p app-dir
-        for LINE in $(cat "$INFILE")
+        for LINE in \$(cat "$INFILE")
         do
-            cp -r src/"$LINE" app-dir/
+            cp -r src/"\$LINE" app-dir/
         done
     """
 }
@@ -20,7 +20,7 @@ def copyFile(dirname) {
     sh """
         cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
         zip -r app-dir.zip app-dir/
-        scp -i $TF_DIR/${dirname}/files/$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$instance_ip:~/
+        scp -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$instance_ip:~/
     """
 }
 
