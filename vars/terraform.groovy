@@ -1,18 +1,25 @@
 #!/usr/bin/env groovy
-/* groovylint-disable MethodParameterTypeRequired, MethodReturnTypeRequired, NoDef */
+/* groovylint-disable MethodParameterTypeRequired, MethodReturnTypeRequired, NoDef, UnusedMethodParameter */
+
 def init(dirname) {
-    'cd src/terraform/dirname'
-    'terraform init -input=false'
+    sh '''
+        cd src/terraform/dirname
+        terraform init -input=false
+    '''
 }
 
 def plan(dirname) {
-    'cd src/terraform/dirname'
-    'terraform plan - out dirname.plan'
+    sh '''
+        cd src/terraform/dirname
+        terraform plan - out dirname.plan
+    '''
 }
 
 /* groovylint-disable-next-line MethodParameterTypeRequired */
 def apply(dirname) {
-    'cd src/terraform/dirname'
-    'terraform apply dirname.plan'
+    sh '''
+        cd src/terraform/dirname
+        terraform apply dirname.plan
+    '''
 }
 
