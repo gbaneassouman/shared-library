@@ -5,7 +5,6 @@
 def init(name) {
     /* groovylint-disable-next-line GStringExpressionWithinString */
     sh "terraform -chdir=src/terraform/${name} init -input=false"
-    
 }
 
 def plan(name) {
