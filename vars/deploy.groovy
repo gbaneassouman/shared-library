@@ -17,7 +17,7 @@ def appDirname(dirname) {
 
 def copyFile(dirname) {
     sh """
-        export instance_ip=$instance_ip
+        export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)
         cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
         zip -r app-dir.zip app-dir/
         scp -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$instance_ip:~/
