@@ -3,9 +3,9 @@
 /* groovylint-disable-next-line NglParseError */
 def exportIp(dirname) {
     //sh "export instance_ip='$(awk '{print \$1}' src/terraform/${dirname}/files/infos_ec2.txt)'"
-    sh '''
+    sh """
         export instance_ip='$(awk '{print \$1}' src/terraform/${dirname}/files/infos_ec2.txt)'
-    '''
+    """
 }
 
 def appDirname(dirname) {
