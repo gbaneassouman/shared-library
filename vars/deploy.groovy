@@ -29,9 +29,11 @@ def unzipDir(dirname) {
 }
 
 def apps(dirname) {
-    sh "ssh -i \$TF_DIR/${dirname}\/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'unzip ~/app-dir.zip'"
-    sh "ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'chmod +x ~/app-dir/deploy-apps.sh'"
-    sh "ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'cd ~/app-dir && sh deploy-apps.sh'"
+    sh """
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'unzip ~/app-dir.zip'
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'chmod +x ~/app-dir/deploy-apps.sh'
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'cd ~/app-dir && sh deploy-apps.sh'
+    """
 }
 
 def deleteDirs(dirname) {
