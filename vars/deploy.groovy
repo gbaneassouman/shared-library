@@ -7,17 +7,18 @@ def exportIp(dirname) {
 //INFILE=\$PWD/list.txt
 def appDirname(dirname) {
     sh """
+        #!/bin/bash
         mkdir -p app-dir
         for LINE in \$(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
         do
             cp -r src/"\$LINE" app-dir/
         done
-        echo $instance_ip
     """
 }
 
 def copyFile(dirname) {
     sh """
+        #!/bin/bash
         export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)
         cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
         zip -r app-dir.zip app-dir/
@@ -26,14 +27,19 @@ def copyFile(dirname) {
 }
 
 def unzipDir(dirname) {
-    sh "ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'unzip ~/app-dir.zip' "
+    sh """
+        export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@${instance_ip} 'unzip ~/app-dir.zip' 
+        """
 }
 
 def apps(dirname) {
     sh """
-        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'unzip ~/app-dir.zip'
-        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'chmod +x ~/app-dir/deploy-apps.sh'
-        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'cd ~/app-dir && sh deploy-apps.sh'
+        #!/bin/bash
+        export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@${instance_ip} 'unzip ~/app-dir.zip'
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@${instance_ip} 'chmod +x ~/app-dir/deploy-apps.sh'
+        ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@${instance_ip} 'cd ~/app-dir && sh deploy-apps.sh'
     """
 }
 
