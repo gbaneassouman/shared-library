@@ -8,7 +8,7 @@
 def appDirname(dirname) {
     sh """
         mkdir -p app-dir
-        for LINE in \$(cat $PWD/list.txt)
+        for LINE in \$(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
         do
             cp -r src/"\$LINE" app-dir/
         done
