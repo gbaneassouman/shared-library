@@ -3,7 +3,7 @@
 /* groovylint-disable-next-line MethodReturnTypeRequired */
 /* groovylint-disable-next-line NglParseError */
 /* groovylint-disable-next-line NoDef */
-def credentials(name) {
+def call(name) {
     sh '''
         rm -rf devops-gbane.pem ~/.aws
         mkdir -p ~/.aws
