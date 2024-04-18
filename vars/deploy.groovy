@@ -4,12 +4,11 @@
 // def exportIp(dirname) {
 //     sh "export instance_ip='\$$(awk '{{print \$$1}}' src/terraform/${dirname}/files/infos_ec2.txt)'"
 // }
-
+//INFILE=\$PWD/list.txt
 def appDirname(dirname) {
     sh """
-        INFILE=\$PWD/list.txt
         mkdir -p app-dir
-        for LINE in \$(cat "$INFILE")
+        for LINE in \$(cat $PWD/list.txt)
         do
             cp -r src/"\$LINE" app-dir/
         done
