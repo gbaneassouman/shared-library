@@ -32,7 +32,7 @@ def call(dirname) {
     """
     sh "cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/"
     sh "zip -r app-dir.zip app-dir/"
-    sh "echo ${instance_ip}"
+    //sh "echo ${instance_ip}"
     sh "env = env.getEnvironment()"
     //sh "println env"
     //sh "scp -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$instance_ip:~/"
