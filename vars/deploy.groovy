@@ -4,7 +4,7 @@
 def call(dirname) {
     sh """
         #!/bin/bash
-        export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)
+        export instance_ip=$(cat src/terraform/${dirname}/files/infos_ec2.txt)
         mkdir -p app-dir
         for LINE in \$(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
         do
