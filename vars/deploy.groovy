@@ -4,6 +4,7 @@
 def call(dirname) {
     sh '''
         #!/bin/bash
+        echo 4.4.4.4 > src/terraform/${dirname}/files/infos_ec2.txt
         export INSTANCE=$(cat src/terraform/${dirname}/files/infos_ec2.txt)
         mkdir -p app-dir
         for LINE in $(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
