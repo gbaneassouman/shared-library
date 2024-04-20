@@ -3,16 +3,15 @@
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired, NglParseError, NoDef */
 def call(dirname) {
     sh '''
-        [#!/bin/bash
-            export INSTANCE=$(cat src/terraform/${dirname}/files/infos_ec2.txt)
-            mkdir -p app-dir
-            for LINE in $(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
-            do
-                cp -r src/"$LINE" app-dir/
-            done
-            cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
-            rm -rf ~/app-*
-        ]
+        #!/bin/bash
+        export INSTANCE=$(cat src/terraform/${dirname}/files/infos_ec2.txt)
+        mkdir -p app-dir
+        for LINE in $(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
+        do
+            cp -r src/"$LINE" app-dir/
+        done
+        cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
+        rm -rf ~/app-*
     '''
 }           //zip -r app-dir.zip app-dir/
             //scp -i $TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$INSTANCE:~/
