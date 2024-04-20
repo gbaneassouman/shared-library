@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
-import hudson.EnvVars;
-import jenkins.model.Jenkins
+//import hudson.EnvVars;
+//import jenkins.model.Jenkins
 /* groovylint-disable GStringExpressionWithinString, LineLength, NglParseError, NoDef */
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired, NglParseError, NoDef */
 // def call(dirname) {
@@ -24,10 +24,9 @@ import jenkins.model.Jenkins
 // }
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired */
 def call(dirname) {
-    sh 'curl https://checkip.amazonaws.com'
     sh 'export INSTANCE=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)'
     def env = System.getenv()
-    echo env['JENKINS_HOME']
+    sh 'echo env['INSTANCE']'
     sh 'mkdir -p app-dir'
     sh """
     for LINE in \$(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
