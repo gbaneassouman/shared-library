@@ -22,9 +22,7 @@
 // }
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired */
 def call() {
-    step {
-        echo ${env.BUILD_NUMBER}
-    }
+    sh 'echo ${env.BUILD_NUMBER}'
     // sh 'cat src/terraform/${dirname}/files/infos_ec2.txt'
     // sh 'export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)'
     // sh 'mkdir -p app-dir'
