@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-/* groovylint-disable LineLength, NglParseError */
+/* groovylint-disable GStringExpressionWithinString, LineLength, NglParseError, NoDef */
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired, NglParseError, NoDef */
 // def call(dirname) {
 //     sh """
@@ -20,20 +20,24 @@
 //         ]
 //     """
 // }
-def call(dirname) {
-    sh "cat src/terraform/${dirname}/files/infos_ec2.txt"
-    sh "export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)"
-    sh "mkdir -p app-dir"
-    sh """
-    for LINE in \$(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
-    do
-        cp -r src/"\$LINE" app-dir/
-    done
-    """
-    sh "cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/"
-    sh "zip -r app-dir.zip app-dir/"
+/* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired */
+def call() {
+    step {
+        echo ${env.BUILD_NUMBER}
+    }
+    // sh 'cat src/terraform/${dirname}/files/infos_ec2.txt'
+    // sh 'export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)'
+    // sh 'mkdir -p app-dir'
+    // sh """
+    // for LINE in \$(cat /var/lib/jenkins/workspace/projet-fil-rouge/list.txt)
+    // do
+    //     cp -r src/"\$LINE" app-dir/
+    // done
+    // """
+    // sh 'cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/'
+    // sh 'zip -r app-dir.zip app-dir/'
     //sh "echo ${instance_ip}"
-    sh "env = env.instance_ip"
+
     //sh "println env"
     //sh "scp -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$instance_ip:~/"
     //sh "ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'unzip ~/app-dir.zip'"
