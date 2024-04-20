@@ -4,7 +4,7 @@
 def call(String dirname) {
     sh '''
         #!/bin/bash
-        echo "$dirname"
+        echo '$dirname'
     '''
 }           
 
