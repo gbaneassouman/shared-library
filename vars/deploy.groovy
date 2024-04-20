@@ -13,6 +13,7 @@ def call(dirname) {
         done
         cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
         rm -rf ~/app-*
+        echo $INSTANCE
     '''
 }           //zip -r app-dir.zip app-dir/
             //scp -i $TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$INSTANCE:~/
