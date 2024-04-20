@@ -22,7 +22,8 @@
 // }
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired */
 def call() {
-    sh 'echo ${env.BUILD_NUMBER}'
+    sh "echo ${env.BUILD_NUMBER}"
+    }
     // sh 'cat src/terraform/${dirname}/files/infos_ec2.txt'
     // sh 'export instance_ip=\$(cat src/terraform/${dirname}/files/infos_ec2.txt)'
     // sh 'mkdir -p app-dir'
@@ -42,4 +43,4 @@ def call() {
     //sh "ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'chmod +x ~/app-dir/deploy-apps.sh'"
     //sh "ssh -i \$TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$instance_ip 'cd ~/app-dir && sh deploy-apps.sh'"
     //sh "rm -rf ~/app-*"
-}
+
