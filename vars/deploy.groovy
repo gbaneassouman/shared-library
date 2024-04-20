@@ -4,7 +4,7 @@
 def call(dirname) {
     sh '''
         #!/bin/bash
-        echo $dirname
+        echo ${dirname}
     '''
 }           
 
