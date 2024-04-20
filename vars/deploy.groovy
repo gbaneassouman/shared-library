@@ -1,10 +1,8 @@
 #!/usr/bin/env groovy
-import hudson.EnvVars;
-import jenkins.model.Jenkins
 /* groovylint-disable GStringExpressionWithinString, LineLength, NglParseError, NoDef */
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired, NglParseError, NoDef */
 def call(dirname) {
-    sh """
+    sh '''
         [#!/bin/bash
             export INSTANCE=$(cat src/terraform/${dirname}/files/infos_ec2.txt)
             mkdir -p app-dir
@@ -15,7 +13,7 @@ def call(dirname) {
             cp src/scripts/deploy-apps.sh app-dir/ && cp src/terraform/${dirname}/files/infos_ec2.txt app-dir/
             rm -rf ~/app-*
         ]
-    """
+    '''
 }           //zip -r app-dir.zip app-dir/
             //scp -i $TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no -r app-dir.zip $username@$INSTANCE:~/
             //ssh -i $TF_DIR/${dirname}/files/\$AWS_KEY_NAME.pem -o StrictHostKeyChecking=no  $username@$INSTANCE 'unzip ~/app-dir.zip'
