@@ -2,7 +2,7 @@
 /* groovylint-disable GStringExpressionWithinString, LineLength, NglParseError, NoDef */
 /* groovylint-disable-next-line MethodParameterTypeRequired, MethodReturnTypeRequired, NglParseError, NoDef */
 def call(String dirname) {
-    if ( dirname == "staging" ) {
+    if ( dirname == 'staging' ) {
         sh '''
             #!/bin/bash
             export INSTANCE=$(cat src/terraform/staging/files/infos_ec2.txt)
@@ -20,9 +20,8 @@ def call(String dirname) {
             sleep 5
             rm -rf ~/app-*
         '''
-        }
-    
-    else {
+    }
+    else if ( dirname == 'prod' ) {
         sh '''
             #!/bin/bash
             export INSTANCE=$(cat src/terraform/prod/files/infos_ec2.txt)
@@ -41,5 +40,6 @@ def call(String dirname) {
             rm -rf ~/app-*
         '''
     }
-}           
+}
+
 
