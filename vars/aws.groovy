@@ -3,7 +3,7 @@
 /* groovylint-disable-next-line MethodReturnTypeRequired */
 /* groovylint-disable-next-line NglParseError */
 /* groovylint-disable-next-line NoDef */
-def call(name) {
+def call(dirname) {
     /* groovylint-disable-next-line GStringExpressionWithinString */
     if ( dirname == 'staging' ) {
         sh '''
