@@ -2,24 +2,48 @@
 /* groovylint-disable GStringExpressionWithinString, LineLength, MethodReturnTypeRequired, NoDef, UnusedMethodParameter */
 def install_kubernetes(String dirname) {
     /* groovylint-disable-next-line LineLength */
-    sh '''
-        #!/bin/bash
-        cp $TF_DIR/${dirname}/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
-        cp $TF_DIR/${dirname}/${dirname}.yml src/ansible/host_vars/${dirname}.yml
-        cd $PWD/src/ansible
-        ansible-playbook -i hosts.yml playbooks/${dirname}-k3s.yml
-        sleep 10
-    '''
+    if ( dirname == 'staging' ) {
+        sh '''
+            #!/bin/bash
+            cp $TF_DIR/staging/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
+            cp $TF_DIR/staging/staging.yml src/ansible/host_vars/staging.yml
+            cd $PWD/src/ansible
+            ansible-playbook -i hosts.yml playbooks/staging-k3s.yml
+            sleep 10
+        '''
+    }
+    else if ( dirname == 'prod' ) {
+        sh '''
+            #!/bin/bash
+            cp $TF_DIR/prod/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
+            cp $TF_DIR/prod/prod.yml src/ansible/host_vars/prod.yml
+            cd $PWD/src/ansible
+            ansible-playbook -i hosts.yml playbooks/prod-k3s.yml
+            sleep 10
+        '''
+    }
 }
 
 /* groovylint-disable-next-line NoDef */
 def deploy_apps(String dirname) {
-    /* groovylint-disable-next-line LineLength */
-    sh '''
-        #!/bin/bash
-        cp $TF_DIR/${dirname}/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
-        cp $TF_DIR/${dirname}/${dirname}.yml src/ansible/host_vars/${dirname}.yml
-        cd $PWD/src/ansible
-        ansible-playbook -i hosts.yml playbooks/deploy-apps-${dirname}.yml
-    '''
+    /* groovylint-disable-next-line DuplicateStringLiteral, EmptyIfStatement, LineLength */
+    if ( dirname == 'staging') {
+        sh '''
+            #!/bin/bash
+            cp $TF_DIR/staging/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
+            cp $TF_DIR/staging/staging.yml src/ansible/host_vars/staging.yml
+            cd $PWD/src/ansible
+            ansible-playbook -i hosts.yml playbooks/deploy-apps-staging.yml
+        '''
+    }
+    /* groovylint-disable-next-line DuplicateStringLiteral */
+    else if ( dirname == 'prod') {
+        sh '''
+            #!/bin/bash
+            cp $TF_DIR/prod/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
+            cp $TF_DIR/prod/prod.yml src/ansible/host_vars/prod.yml
+            cd $PWD/src/ansible
+            ansible-playbook -i hosts.yml playbooks/deploy-apps-prod.yml
+        '''
+    }
 }
