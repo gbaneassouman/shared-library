@@ -5,14 +5,14 @@ def install_kubernetes(String dirname) {
     if ( dirname == 'staging' ) {
         sh '''
             #!/bin/bash
-            tree $TF_DIR/staging
+            ls -l $TF_DIR/staging
             sleep 10
         '''
     }
     else if ( dirname == 'prod' ) {
         sh '''
             #!/bin/bash
-            tree $TF_DIR/prod
+            ls -l $TF_DIR/prod
             sleep 10
         '''
     }
