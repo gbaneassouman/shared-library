@@ -30,20 +30,23 @@ def deploy_apps(String dirname) {
     if ( dirname == 'staging') {
         sh '''
             #!/bin/bash
-            cp $TF_DIR/staging/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
-            cp $TF_DIR/staging/staging.yml src/ansible/host_vars/staging.yml
-            cd $PWD/src/ansible
-            ansible-playbook -i hosts.yml playbooks/deploy-apps-staging.yml
+            ls -l $TF_DIR/staging/
         '''
     }
     /* groovylint-disable-next-line DuplicateStringLiteral */
     else if ( dirname == 'prod') {
         sh '''
             #!/bin/bash
-            cp $TF_DIR/prod/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
-            cp $TF_DIR/prod/prod.yml src/ansible/host_vars/prod.yml
-            cd $PWD/src/ansible
-            ansible-playbook -i hosts.yml playbooks/deploy-apps-prod.yml
+            ls -l $TF_DIR/prod/
         '''
     }
 }
+
+//cp $TF_DIR/staging/staging.yml src/ansible/host_vars/staging.yml
+//cd $PWD/src/ansible
+//ansible-playbook -i hosts.yml playbooks/deploy-apps-staging.yml
+//cp $TF_DIR/prod/ic-webapp-deployment.yml src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
+//cp $TF_DIR/prod/prod.yml src/ansible/host_vars/prod.yml
+//cd $PWD/src/ansible
+//ansible-playbook -i hosts.yml playbooks/deploy-apps-prod.yml
+//src/ansible/playbooks/manifests/ic-webapp/ic-webapp-deployment.yml
