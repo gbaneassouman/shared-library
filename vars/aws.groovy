@@ -7,7 +7,7 @@ def call(dirname) {
     /* groovylint-disable-next-line GStringExpressionWithinString */
     if ( dirname == 'staging' ) {
         sh '''
-            #!/bin/bashs
+            #!/bin/bash
             rm -rf $AWS_KEY_NAME.pem ~/.aws
             mkdir -p ~/.aws
             echo "[default]" > ~/.aws/credentials
@@ -22,7 +22,7 @@ def call(dirname) {
     }
     else if ( dirname == 'prod' ) {
         sh '''
-            #!/bin/bashs
+            #!/bin/bash
             rm -rf $AWS_KEY_NAME.pem ~/.aws
             mkdir -p ~/.aws
             echo "[default]" > ~/.aws/credentials
